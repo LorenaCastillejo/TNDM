@@ -3,19 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Box</title>
-    <link rel="stylesheet" href="style.css">
+    <title>User Interface</title>
+    <style>
+        body {
+            background-color: #e6f0f5;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+        }
+        .buttons {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        .button {
+            display: block;
+            margin-bottom: 10px;
+            padding: 10px 20px;
+            background-color: #d9e3ea;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        .button:hover {
+            background-color: #c2d4df;
+        }
+        .logo {
+            position: absolute;
+            bottom: -10px;
+            left: -10px;
+        }
+        .input-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 0.5em;
+        }
+        input[type=text] {
+            width: min(90%, 500px);
+            padding: 0.7em;
+            border-radius: 0.7em;
+            border: none;
+            font-size: 0.9em;
+            padding-left: 0.8em;
+            background-color: #fff;
+            color: #333;
+            font-family: sans-serif;
+        }
+        input[type=text]::placeholder {
+            color: #bbb;
+        }
+        .robot-icon {
+            position: absolute;
+            width: min(15vw, 80px);
+            top: -30%;
+            right: -30%;
+        }
+        h1 {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5em;
+        }
+    </style>
 </head>
 <body>
-    <div class="chat-container">
-        <div class="chat-header">Chat Box</div>
-        <div class="chat-messages">
-            <!-- Messages will go here -->
+    <div class="container">
+        <div class="buttons">
+            <button class="button">Create Graph</button>
+            <button class="button">Create New</button>
         </div>
-        <div class="chat-input">
-            <input type="text" placeholder="Type a message...">
-            <button>Send</button>
+        <h1>How Can We Assist You?</h1>
+        <div class="input-container">
+            <input type="text" placeholder="| Type Here">
         </div>
+        <img src="robot-icon.png" alt="Robot Icon" class="robot-icon">
+        <img src="logo.png" alt="Logo" class="logo">
     </div>
 </body>
 </html>
