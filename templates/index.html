@@ -37,7 +37,8 @@
         }
         .logo {
             position: absolute;
-            width: min(10vw, 50px); /* Reduce the size of the image */
+            width: 50px; /* Set the same width as the CHATBOT icon */
+            height: auto; /* Maintain aspect ratio */
             bottom: 10px; /* Position it near the bottom */
             left: 10px; /* Position it near the left */
         }
@@ -110,32 +111,29 @@
         <h1>How Can We Assist You?</h1>
         <div class="input-container">
             <input type="text" placeholder="| Type Here" id="task-input">
-            <div id="loading-icon" class="dots" style="display: none; margin-left: 10px;">
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-            </div>
+        </div>
+        <div id="enter-loading-icon" style="display: none; position: absolute; bottom: 117px; left: 226px;">
+            <img src="Loadingicon.png" alt="Loading Icon" style="width: 100px; height: 100px;">
         </div>
         <img src="CHATBOT.png" alt="Chatbot Icon" class="CHATBOT-icon">
         <img src="LOGO.png" alt="Logo" class="logo">
     </div>
     <script>
         const input = document.getElementById('task-input');
-        const loadingIcon = document.getElementById('loading-icon');
+        const enterLoadingIcon = document.getElementById('enter-loading-icon');
 
         let typingTimer;
         const typingDelay = 1000; // 1 second delay after typing stops
 
-        input.addEventListener('input', () => {
-            clearTimeout(typingTimer);
-            loadingIcon.style.display = 'none'; // Hide the icon while typing
-            typingTimer = setTimeout(() => {
-                loadingIcon.style.display = 'flex'; // Show the icon after typing stops
-                // Simulate a task (e.g., API call) and hide the icon after completion
+        // Show loading icon at 226x117 when "Enter" is pressed
+        input.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                enterLoadingIcon.style.display = 'block'; // Show the loading image
+                // Simulate a task (e.g., waiting for a response) and hide the image after completion
                 setTimeout(() => {
-                    loadingIcon.style.display = 'none';
-                }, 2000); // Hide the icon after 2 seconds
-            }, typingDelay);
+                    enterLoadingIcon.style.display = 'none'; // Hide the loading image
+                }, 3000); // Hide the image after 3 seconds
+            }
         });
     </script>
 </body>
