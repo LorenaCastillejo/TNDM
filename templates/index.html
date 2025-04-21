@@ -90,4 +90,55 @@
         <img src="LOGO.png" alt="Logo" class="logo">
     </div>
 </body>
+
+
+<div id="chat-output" style="margin-top: 1em;"></div>
+
+<script>
+    const inputBox = document.querySelector('input[type="text"]');
+    const container = document.querySelector('.container');
+    const heading = document.querySelector('h1');
+  
+    // Create a container for messages
+    const chatOutput = document.createElement('div');
+    chatOutput.style.marginTop = '1em';
+    chatOutput.style.textAlign = 'center';
+    chatOutput.style.maxHeight = '200px'; // Adjust height as needed
+    chatOutput.style.overflowY = 'auto';
+    chatOutput.style.width = '100%';
+    container.insertBefore(chatOutput, document.querySelector('.input-container'));
+  
+    inputBox.addEventListener('keypress', function (e) {
+      if (e.key === 'Enter' && inputBox.value.trim() !== '') {
+        const userMsg = inputBox.value.trim();
+        inputBox.value = '';
+  
+        // Hide the heading on first message
+        if (heading.style.display !== 'none') {
+          heading.style.display = 'none';
+        }
+  
+        // Display user message
+        const userBubble = document.createElement('p');
+        userBubble.textContent = `You: ${userMsg}`;
+        userBubble.style.margin = '0.3em';
+        userBubble.style.fontWeight = 'bold';
+  
+        // Display dummy chatbot response
+        const botBubble = document.createElement('p');
+        botBubble.textContent = `Chatbot: This is a dummy response to "${userMsg}"`;
+        botBubble.style.margin = '0.3em';
+        botBubble.style.color = '#444';
+  
+        chatOutput.appendChild(userBubble);
+        chatOutput.appendChild(botBubble);
+  
+        // Auto scroll to bottom
+        chatOutput.scrollTop = chatOutput.scrollHeight;
+      }
+    });
+  </script>
+  
+  
 </html>
+
