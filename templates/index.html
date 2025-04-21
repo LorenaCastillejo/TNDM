@@ -126,99 +126,83 @@
             <button class="button">Create New</button>
         </div>
         <h1>How Can We Assist You?</h1>
+
+        <!-- Chat history above the input box -->
+        <div id="chat-output" style="margin-top: 1em; text-align: center; max-height: 200px; overflow-y: auto; width: 100%;"></div>
+
+        <!-- Input box -->
         <div class="input-container">
             <input type="text" placeholder="| Type Here" id="task-input">
         </div>
-        <div id="enter-loading-icon" style="display: none; position: absolute; top: 117px; left: 226px;">
+
+        <!-- User prompt below the input box -->
+        <div id="user-prompt" style="margin-top: 1em; text-align: center; color: #333; font-weight: bold;"></div>
+
+        <div id="enter-loading-icon" style="display: none; margin: 1em auto; text-align: center;">
             <div class="dots">
                 <div class="dot"></div>
                 <div class="dot"></div>
                 <div class="dot"></div>
             </div>
         </div>
+
         <div id="error-message" style="display: none; color: red; margin-top: 1em;">
             No results found. Please try again.
         </div>
+
         <img src="CHATBOT.png" alt="Chatbot Icon" class="CHATBOT-icon">
         <img src="LOGO.png" alt="Logo" class="logo">
     </div>
     <script>
-        const input = document.getElementById('task-input');
+        const inputBox = document.querySelector('input[type="text"]');
+        const container = document.querySelector('.container');
+        const heading = document.querySelector('h1');
+        const chatOutput = document.getElementById('chat-output');
+        const userPrompt = document.getElementById('user-prompt');
         const enterLoadingIcon = document.getElementById('enter-loading-icon');
         const errorMessage = document.getElementById('error-message');
 
-        let typingTimer;
-        const typingDelay = 1000; // 1 second delay after typing stops
+        inputBox.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter' && inputBox.value.trim() !== '') {
+                const userMsg = inputBox.value.trim();
+                inputBox.value = '';
 
-        // Show loading icon and simulate a task
-        input.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter') {
-                enterLoadingIcon.style.display = 'block'; // Show the loading icon
-                errorMessage.style.display = 'none'; // Hide the error message if visible
+                // Hide the heading on first message
+                if (heading.style.display !== 'none') {
+                    heading.style.display = 'none';
+                }
 
-                // Simulate a task (e.g., fetching results)
+                // Display user message in chat history
+                const userBubble = document.createElement('p');
+                userBubble.textContent = `You: ${userMsg}`;
+                userBubble.style.margin = '0.3em';
+                userBubble.style.fontWeight = 'bold';
+                chatOutput.appendChild(userBubble);
+
+                // Display user prompt below the input box
+                userPrompt.textContent = `You entered: "${userMsg}"`;
+
+                // Show loading dots
+                enterLoadingIcon.style.display = 'block';
+                chatOutput.appendChild(enterLoadingIcon);
+
+                // Simulate a delay for chatbot response
                 setTimeout(() => {
-                    enterLoadingIcon.style.display = 'none'; // Hide the loading icon
+                    enterLoadingIcon.style.display = 'none'; // Hide the loading dots
 
-                    // Simulate no results found
-                    const resultsFound = false; // Change this to true if results are found
-                    if (!resultsFound) {
-                        errorMessage.style.display = 'block'; // Show the error message
-                    }
-                }, 3000); // Simulate a 3-second task
+                    // Display dummy chatbot response
+                    const botBubble = document.createElement('p');
+                    botBubble.textContent = `Chatbot: This is a dummy response to "${userMsg}"`;
+                    botBubble.style.margin = '0.3em';
+                    botBubble.style.color = '#444';
+                    chatOutput.appendChild(botBubble);
+
+                    // Auto scroll to bottom
+                    chatOutput.scrollTop = chatOutput.scrollHeight;
+                }, 3000); // Simulate a 3-second delay
             }
         });
     </script>
 </body>
-
-
-<div id="chat-output" style="margin-top: 1em;"></div>
-
-<script>
-    const inputBox = document.querySelector('input[type="text"]');
-    const container = document.querySelector('.container');
-    const heading = document.querySelector('h1');
-  
-    // Create a container for messages
-    const chatOutput = document.createElement('div');
-    chatOutput.style.marginTop = '1em';
-    chatOutput.style.textAlign = 'center';
-    chatOutput.style.maxHeight = '200px'; // Adjust height as needed
-    chatOutput.style.overflowY = 'auto';
-    chatOutput.style.width = '100%';
-    container.insertBefore(chatOutput, document.querySelector('.input-container'));
-  
-    inputBox.addEventListener('keypress', function (e) {
-      if (e.key === 'Enter' && inputBox.value.trim() !== '') {
-        const userMsg = inputBox.value.trim();
-        inputBox.value = '';
-  
-        // Hide the heading on first message
-        if (heading.style.display !== 'none') {
-          heading.style.display = 'none';
-        }
-  
-        // Display user message
-        const userBubble = document.createElement('p');
-        userBubble.textContent = `You: ${userMsg}`;
-        userBubble.style.margin = '0.3em';
-        userBubble.style.fontWeight = 'bold';
-  
-        // Display dummy chatbot response
-        const botBubble = document.createElement('p');
-        botBubble.textContent = `Chatbot: This is a dummy response to "${userMsg}"`;
-        botBubble.style.margin = '0.3em';
-        botBubble.style.color = '#444';
-  
-        chatOutput.appendChild(userBubble);
-        chatOutput.appendChild(botBubble);
-  
-        // Auto scroll to bottom
-        chatOutput.scrollTop = chatOutput.scrollHeight;
-      }
-    });
-  </script>
-  
-  
 </html>
 
